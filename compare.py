@@ -12,12 +12,6 @@ comparisons = {}
 
 for animal, sequence in data.animals.items():
     comparisons[animal] = compare_all(animal)
-
-
-def printComparisons():
-    for animal, sequence in data.animals.items():
-        for alt, alt_seq in data.animals.items():
-            print(f"{animal} and {alt}: {Levenshtein.ratio(sequence, alt_seq)}")
             
 average_ratios = {}
 
