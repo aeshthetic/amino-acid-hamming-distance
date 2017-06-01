@@ -1,38 +1,18 @@
-import Levenshtein
-import data
+import json
+
+sequences = open("./sequences.json", "r")
+
+data = json.load(sequences)
 
 def massCompare(animal):
-    comparisons = []
-    for subject, sequence in data.animals.items():
-            comparisons.insert(0, h_distance(data.animals[animal], sequence))
-                
-    return comparisons
+    return [h_distance(data[animal], sequence) for sequence in data.values()]
 
 def h_distance(sequence_1, sequence_2):
     return sum(e1 != e2 for e1, e2 in zip(sequence_1, sequence_2))
 
 
-comparisons = {
-}
-
-for animal, sequence in data.animals.items():
-    comparisons[animal] = massCompare(animal)
-
+comparisons = {animal: massCompare(animal) for animal in data}
            
-average_distance = {}
+average_distance = {animal: sum(distance)/9 for animal, distance in comparisons.items()}
 
-for animal, distance in comparisons.items():
-    average_distance[animal] = (sum(distance)/9)
-    
-
-distance_list = []
-
-for animal, distance in average_distance.items():
-    distance_list.insert(0, [animal, distance])
-
-def getKey(item):
-    return item[1]
-    
-distance_list = sorted(distance_list, key=getKey)
-
-
+distance_list = sorted(list(average_distance.items()), key=lambda i: i[1])
