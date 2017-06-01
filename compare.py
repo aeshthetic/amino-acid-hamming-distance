@@ -4,7 +4,7 @@ import data
 def massCompare(animal):
     comparisons = []
     for subject, sequence in data.animals.items():
-            comparisons.insert(0, Levenshtein.ratio(data.animals[animal], sequence))
+            comparisons.insert(0, h_distance(data.animals[animal], sequence))
                 
     return comparisons
 
@@ -18,19 +18,21 @@ comparisons = {
 for animal, sequence in data.animals.items():
     comparisons[animal] = massCompare(animal)
 
-            
-average_ratios = {}
+           
+average_distance = {}
 
-for animal, ratio in comparisons.items():
-    average_ratios[animal] = (sum(ratio)/10)
+for animal, distance in comparisons.items():
+    average_distance[animal] = (sum(distance)/9)
     
 
-ratio_list = []
+distance_list = []
 
-for animal, ratio in average_ratios.items():
-    ratio_list.insert(0, [animal, ratio])
+for animal, distance in average_distance.items():
+    distance_list.insert(0, [animal, distance])
 
 def getKey(item):
     return item[1]
     
-ratio_list = sorted(ratio_list, key=getKey)
+distance_list = sorted(distance_list, key=getKey)
+
+
