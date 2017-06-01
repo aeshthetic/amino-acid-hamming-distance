@@ -1,17 +1,23 @@
 import Levenshtein
 import data
 
-def compare_all(animal):
+def massCompare(animal):
     comparisons = []
     for subject, sequence in data.animals.items():
             comparisons.insert(0, Levenshtein.ratio(data.animals[animal], sequence))
                 
     return comparisons
 
-comparisons = {}
+def h_distance(sequence_1, sequence_2):
+    return sum(e1 != e2 for e1, e2 in zip(sequence_1, sequence_2))
+
+
+comparisons = {
+}
 
 for animal, sequence in data.animals.items():
-    comparisons[animal] = compare_all(animal)
+    comparisons[animal] = massCompare(animal)
+
             
 average_ratios = {}
 
